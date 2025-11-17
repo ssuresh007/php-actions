@@ -65,10 +65,13 @@ jobs:
         with:
           name: laravel-app
 
-      - name: Deploy to Server via SSH
-        uses: easingthemes/ssh-deploy@v4.1.8
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.SERVER_IP }}
-          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-          TARGET: /public_html/CICD
+          server: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          protocol: ftps
+          port: 22
+          local-dir: ./
+          server-dir: /public_html/CICD
