@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -23,8 +23,7 @@ jobs:
           coverage: none
 
       - name: Install Dependencies
-        run: |
-          composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -36,7 +35,7 @@ jobs:
         run: php artisan test
 
       - name: Upload Build Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: laravel-app
           path: .
@@ -47,17 +46,15 @@ jobs:
 
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: laravel-app
 
-      - name: Deploy to Server via SFTP / SSH
-        uses: easingthemes/ssh-deploy@v5.0.0
+      - name: Deploy to Server via SSH
+        uses: easingthemes/ssh-deploy@v5.0.7
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
           TARGET: /public_html/CICD
-
-
-          
+          SOURCE: "."
