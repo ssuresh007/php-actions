@@ -50,8 +50,8 @@ jobs:
         with:
           name: laravel-app
 
-      - name: Deploy to cPanel via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+      - name: Deploy to Server via SSH
+        uses: easingthemes/ssh-deploy@v4.1.8
         with:
           server: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
@@ -59,3 +59,4 @@ jobs:
           local-dir: ./   # your local project folder
           server-dir: /public_html/CICD   # change to your folder path in cPanel
           protocol: ftp
+        
