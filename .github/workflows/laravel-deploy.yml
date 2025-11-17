@@ -72,6 +72,6 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           protocol: ftps
-          port: 22
+          port: 21
           local-dir: ./
           server-dir: /public_html/CICD
